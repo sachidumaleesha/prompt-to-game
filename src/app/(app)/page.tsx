@@ -1,19 +1,20 @@
-import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
 import {
   Empty,
-  EmptyContent,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
 
-export default function Home() {
+export default async function Home() {
+  await auth.protect();
+
   return (
-    <main className="flex min-h-svh">
+    <main className="flex min-h-svh flex-col items-center">
       <Empty>
         <EmptyHeader>
           <EmptyMedia>
@@ -33,19 +34,8 @@ export default function Home() {
             own words. If you can describe it, you can play it.
           </EmptyDescription>
         </EmptyHeader>
-        <EmptyContent>
-          <Show when="signed-out">
-            <SignInButton mode="modal">
-              <Button>Sign in</Button>
-            </SignInButton>
-            <SignUpButton mode="modal">
-              <Button variant="outline">Sign up</Button>
-            </SignUpButton>
-          </Show>
-          <Show when="signed-in">
-            <UserButton />
-          </Show>
-        </EmptyContent>
+        <UserButton />
+        <OrganizationSwitcher />
       </Empty>
     </main>
   );

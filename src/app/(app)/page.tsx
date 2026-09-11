@@ -1,9 +1,10 @@
-import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 
+import { ChatComposer } from "@/components/chat-composer";
 import {
   Empty,
+  EmptyContent,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
@@ -34,8 +35,9 @@ export default async function Home() {
             own words. If you can describe it, you can play it.
           </EmptyDescription>
         </EmptyHeader>
-        <UserButton />
-        <OrganizationSwitcher />
+        <EmptyContent className="max-w-2xl">
+          <ChatComposer />
+        </EmptyContent>
       </Empty>
     </main>
   );

@@ -1,7 +1,10 @@
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 
+import { Button } from "@/components/ui/button";
 import {
   Empty,
+  EmptyContent,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
@@ -30,6 +33,19 @@ export default function Home() {
             own words. If you can describe it, you can play it.
           </EmptyDescription>
         </EmptyHeader>
+        <EmptyContent>
+          <Show when="signed-out">
+            <SignInButton mode="modal">
+              <Button>Sign in</Button>
+            </SignInButton>
+            <SignUpButton mode="modal">
+              <Button variant="outline">Sign up</Button>
+            </SignUpButton>
+          </Show>
+          <Show when="signed-in">
+            <UserButton />
+          </Show>
+        </EmptyContent>
       </Empty>
     </main>
   );
